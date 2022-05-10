@@ -27,30 +27,24 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="mx-auto collapse navbar-collapse navbar-links " id="navbarNav">
-          
-
           <ul class="navbar-nav mx-auto ">
             {% for branch in branchs %}
             <li class="nav-item mx-auto dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-current="page" href="#">{{branch.name}}</a>
-           
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-current="page"
+                href="#">{{branch.name}}</a>
               <ul class="dropdown-menu">
                 {% for group in groups %}
                 {% if group.course == branch %}
-                <li><a class="dropdown-item" href="{% url 'group'   group.name group.code %}"> {{group.name}} {{group.code}}&raquo; </a>
-                    
-
-                  
-                </li>                
+                <li><a class="dropdown-item" href="{% url 'group'   group.name group.code %}"> {{group.name}}
+                    {{group.code}}&raquo; </a>
                 </li>
-                {% endif %}  
-                {% endfor %}
-              </ul>
             </li>
+            {% endif %}
             {% endfor %}
           </ul>
-         
-
+          </li>
+          {% endfor %}
+          </ul>
         </div>
       </div>
     </nav>
@@ -64,16 +58,16 @@
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="2000">
+        <div class="carousel-item active img-fluid" data-bs-interval="2000">
           <img
             src="https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?cs=srgb&dl=pexels-buro-millennial-1438072.jpg&fm=jpg"
             class="d-block w-100 slide img-fluid" alt="...">
-          <div class="carousel-caption d-none d-md-block">
+          <div class="carousel-caption d-none d-md-block img-fluid">
             <h5 class="text-white">Up to 50% Scholarship Available</h5>
             <p class="text-white">Admission Open for B.Tech, BBA, BA-Applied English, PG Diploma for 2021-22 Session</p>
           </div>
         </div>
-        <div class="carousel-item" data-bs-interval="2000">
+        <div class="carousel-item img-fluid" data-bs-interval="2000">
           <img
             src="https://images.pexels.com/photos/2422294/pexels-photo-2422294.jpeg?cs=srgb&dl=pexels-jopwell-2422294.jpg&fm=jpg"
             class="d-block w-100 slide img-fluid" alt="...">
