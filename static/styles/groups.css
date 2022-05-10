@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+th,
+td {
+  text-align: center;
+}
+
+.content {
+  height: 100vh - 56px - 257px;
+}
+
+.submit {
+  border: 1px solid #23394c;
+}
+.submit:hover {
+  color: white;
+  background-color: #23394c;
+}
+.form-control:focus {
+  color: #23394c;
+  background-color: #fff;
+  border-color: #23394c;
+  outline: 0;
+  box-shadow: 0 0 0 0.02rem #23394c;
+}
+.btn:focus {
+  outline: 0px;
+  box-shadow: #23394c 0px 0px 0px 0.1rem;
+}

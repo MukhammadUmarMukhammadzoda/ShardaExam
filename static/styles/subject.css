@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  background-color: rgb(241, 241, 241);
+}
+a {
+  list-style: none;
+  text-decoration: none;
+  color: #000;
+}
+
+.group {
+  width: 80%;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.group a {
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+.group a:hover {
+  background-color: white;
+  color: black;
+}
