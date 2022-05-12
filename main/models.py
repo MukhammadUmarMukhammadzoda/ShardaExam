@@ -1,8 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser, User
 
 # Create your models here.
 
 class Branch(models.Model):
+
     name = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
@@ -20,19 +22,20 @@ class Semester(models.Model):
 
 
 class Subject(models.Model):
-    name = models.CharField(max_length=50)
-    result = models.FileField(upload_to='files')
+    code = models.CharField(max_length=100, blank=True, null=True)
+    title = models.CharField(max_length=50, blank=True, null=True)
     faculty = models.ManyToManyField('Specialization', related_name="subjects")
     group = models.ForeignKey('Group', on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='subject')
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE)
+    credit = models.PositiveIntegerField(null=True)
     def __str__(self):
-        return self.name
+        return self.title
     
 
 class Group(models.Model):
     name = models.CharField(max_length=50)
     code = models.CharField(max_length=50, null=True, blank=True, unique=True)
-    year = models.CharField(max_length=20, null=True)
     course = models.ForeignKey(Branch, on_delete=models.CASCADE, related_name='groups')
     isarchive = models.BooleanField(default=False)
 
@@ -52,12 +55,23 @@ class Student(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
     unique_id = models.CharField(max_length=100, blank=True, null=True)
     group = models.ForeignKey(Group, on_delete=models.DO_NOTHING,related_name="students")
-    subject = models.ManyToManyField(Subject, related_name='student')
     specializetion = models.ForeignKey(Specialization, on_delete=models.CASCADE)
-    sgpa1 = models.FloatField()
-    sgpa2 = models.FloatField()
-    cgpa = models.FloatField()
 
     def __str__(self):
         return self.name
+
+
+class Result(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.PROTECT, null=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, related_name='results')
+    Assignments = models.PositiveIntegerField(null=True)
+    Mid_Term = models.PositiveIntegerField(null=True)
+    End_Term = models.PositiveIntegerField(null=True)
+    Grade = models.CharField(max_length=5, null=True, blank=True)
+
+    def __str__(self):
+        return self.student.name
+
+
+    
 

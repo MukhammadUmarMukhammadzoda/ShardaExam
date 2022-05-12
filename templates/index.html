@@ -50,10 +50,14 @@
             {% endfor %}
           </ul>
          
-
+        {%  if user.isauthenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+        <a href="{% url 'signup' %}">signup</a>
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
         </div>
       </div>
-    </nav>
     </nav>
 
     <div id="carouselExampleDark" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel">
