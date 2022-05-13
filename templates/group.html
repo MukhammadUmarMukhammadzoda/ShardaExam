@@ -12,60 +12,62 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <title>Sharda University</title>
 </head>
 
 <body>
-
-  <nav class="nav d-flex justify-content-around container-fluid navbar navbar-expand-sm  p-2" style="background-color:#23394c;color:white">
-    <div>
-      <a class="navbar-brand text-dark h1 text-bold text-white" href="#">{{group.name}} {{group.code}}</a>
-    </div>
-    <div>
-      <ul class="list-unstyled navbar-nav">
-        {% for spec in specs %}
-        <li class="nav-item"><a class="text-decoration-none nav-link text-white h5" href="{% url 'spec'  spec.id %}">{{spec.name}}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-  </nav>
-
-  <main class="content">
-
-    <form class="d-flex container my-2" method="get" >
-      <input class="form-control search-input me-2" type="search" name="search" placeholder="Search by names..." aria-label="Search">
-      <button class="btn submit" type="submit">Search</button>
-    </form>
-
-    <table class="table table-bordered container table-responsive" style="width: 83%;">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Full Name</th>
-          <th>Phone number</th>
-          <th>GPA</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for student in students %}
-        <tr>
-          <td>{{student.name}}</td>
-          <td><a class="text-decoration-none  text-dark" href="#">{{student.unique_id}}</a></td>
-          <td>+999999999</td>
-          <td>4.2</td>
-        </tr>
-        {% endfor %}
+  <header style="background-color:#23394c;color:white">
+    <nav class="nav d-flex justify-content-between container navbar navbar-expand-sm  p-2">
+      <div>
+        <a class="navbar-brand text-dark h1 text-bold text-white" href="#">{{group.name}} {{group.code}}</a>
+      </div>
+      <div>
+        <ul class="list-unstyled navbar-nav">
+          {% for spec in specs %}
+          <li class="nav-item"><a class="text-decoration-none nav-link text-white h5"
+              href="{% url 'spec'  spec.id %}">{{spec.name}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+  </header>
 
 
+  <div style="min-height:70vh">
+    <main class="content container">
+      <form class="d-flex my-2" method="GET">
+        <input class="form-control search-input me-2" type="search" name="search" placeholder="Search by names..."
+          aria-label="Search">
+        <button class="btn btn-outline-dark submit" type="submit">Search</button>
+      </form>
+
+      <table class="table table-bordered table-responsive">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Phone number</th>
+            <th>GPA</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+          <tr>
+            <td>{{student.name}}</td>
+            <td><a class="text-decoration-none text-dark" href="#">{{student.unique_id}}</a></td>
+            <td>+999999999</td>
+            <td>4.2</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </main>
+  </div>
 
 
-      </tbody>
-    </table>
-  </main>
 
-
-  <!-- Remove the container if you want to extend the Footer to full width. -->
-  <div class="mt-5">
+  <div>
     <!-- Footer -->
     <footer class="text-center text-lg-start text-white" style="background-color: #23394c">
       <!-- Grid container -->
@@ -90,13 +92,18 @@
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
               <h6 class="text-uppercase mb-4 font-weight-bold">More Info</h6>
               <p>
-                <a href="https://www.shardauniversity.uz/privacy-policy" class="text-white">Privacy Policy</a>
+                <a target="_blank" href="https://www.shardauniversity.uz/privacy-policy"
+                  class="text-white text-decoration-none">Privacy
+                  Policy</a>
               </p>
               <p>
-                <a href="https://www.shardauniversity.uz/terms-of-use" class="text-white">Terms of Use</a>
+                <a target="_blank" href="https://www.shardauniversity.uz/terms-of-use"
+                  class="text-white text-decoration-none">Terms of
+                  Use</a>
               </p>
               <p>
-                <a href="https://www.shardauniversity.uz/disclaimer" class="text-white">Disclaimer</a>
+                <a target="_blank" href="https://www.shardauniversity.uz/disclaimer"
+                  class="text-white text-decoration-none">Disclaimer</a>
               </p>
 
             </div>
@@ -121,21 +128,21 @@
               <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
 
               <!-- Facebook -->
-              <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998"
+              <a target="_blank" class="btn btn-primary btn-floating m-1" style="background-color: #3b5998"
                 href="https://www.facebook.com/ShardaUniversityUzbekistan" role="button"><i
                   class="fab fa-facebook-f"></i></a>
 
               <!-- Google -->
-              <a class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39"
+              <a target="_blank" class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39"
                 href="https://www.shardauniversity.uz/" role="button"><i class="fab fa-google"></i></a>
 
               <!-- Instagram -->
-              <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac"
+              <a target="_blank" class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac"
                 href="https://instagram.com/shardauniuz?igshid=YmMyMTA2M2Y=" role="button"><i
                   class="fab fa-instagram"></i></a>
 
               <!-- Linkedin -->
-              <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca"
+              <a target="_blank" class="btn btn-primary btn-floating m-1" style="background-color: #0082ca"
                 href="https://www.linkedin.com/company/sharda-university-uzbekistan/" role="button"><i
                   class="fab fa-linkedin-in"></i></a>
 

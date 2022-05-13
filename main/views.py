@@ -1,9 +1,8 @@
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from .models import *
-from rest_framework import generics
 from .serializers import *
-
+from django.contrib.auth.forms import  UserCreationForm
+from django.contrib.auth import authenticate, login, logout
 
 
 def index(request):
@@ -38,10 +37,6 @@ def group(request, name, code):
     return render(request, 'group.html', {"specs" : spec, 'students': students, 'group' : group})
 
 
-class API(generics.ListCreateAPIView):
-     queryset = Group.objects.all()
-     serializer_class = GroupSerializer
-
 
 def spec(request, id):
     spec = Specialization.objects.get(id = id)
@@ -49,3 +44,37 @@ def spec(request, id):
 
     return render(request, 'subject.html', {'subjects' : subjects}  )
 
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    context = {
+        'form' : form
+    }
+    return render(request, 'signup.html', context)
+
+
+
+
+
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username = username, password = password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+
+    return render(request, 'login.html')
+
+
+def logoutPage(request):
+    logout(request)
+    return redirect('index')
