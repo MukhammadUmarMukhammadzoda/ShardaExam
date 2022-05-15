@@ -1,11 +1,12 @@
+from multiprocessing import context
 from django.shortcuts import redirect, render
 from .models import *
-from .serializers import *
 from django.contrib.auth.forms import  UserCreationForm
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib.auth.decorators import login_required
 
 def index(request):
+
     branch = Branch.objects.all()
     group = Group.objects.all()
     spec = Specialization.objects.all()
@@ -78,3 +79,34 @@ def loginPage(request):
 def logoutPage(request):
     logout(request)
     return redirect('index')
+
+
+
+@login_required
+def my_subjects(request):
+    subject = Subject.objects.filter(teacher = request.user)
+
+    context = {
+        'subjects' : subject
+    }
+
+    return render(request, 'mysub.html', context)
+
+
+
+
+
+
+
+def result(request,code):
+    subject = Subject.objects.get(code = code)
+    for spec in subject.faculty.all():
+        if Student.objects.filter(specializetion = spec):
+            student = Student.objects.filter(specializetion = spec)
+        else:
+            continue
+
+    context = {
+        'students' : student
+    }  
+    return render(request,'result.html', context)

@@ -1,0 +1,18 @@
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="student_name" placeholder="student name">
+    <input type="number"  name="assignment" placeholder="Assignment numbers">
+
+    <input type="number" name="midterm" placeholder="midterm">
+    <input type="number" name="end_term", placeholder="End Term">
+    <button type="submit"> Save data</button>
+
+
+</form>
+
+
+{%  for student in students %}
+  
+    {{student.name}}
+
+{% endfor %}

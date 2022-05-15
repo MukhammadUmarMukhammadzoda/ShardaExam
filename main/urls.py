@@ -11,6 +11,8 @@ urlpatterns = [
     path('spec/<int:id>', views.spec, name='spec'),
     path('signup', views.signup, name = 'signup'),
     path('login/', views.loginPage, name='login'),
-    path('logout/', views.logoutPage, name='logout')
-    
+    path('logout/', views.logoutPage, name='logout'),
+    path('my_subjects', views.my_subjects, name='my_subjects'),
+    path('result/<str:code>', views.result, name='result'),
+
 ]

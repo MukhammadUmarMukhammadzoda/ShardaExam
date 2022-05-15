@@ -56,6 +56,8 @@ class Student(models.Model):
     unique_id = models.CharField(max_length=100, blank=True, null=True)
     group = models.ForeignKey(Group, on_delete=models.DO_NOTHING,related_name="students")
     specializetion = models.ForeignKey(Specialization, on_delete=models.CASCADE)
+    cgpa = models.FloatField(null=True, blank=True)
+    sgpa = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return self.name
