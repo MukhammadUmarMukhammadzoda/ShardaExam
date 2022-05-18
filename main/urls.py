@@ -15,4 +15,6 @@ urlpatterns = [
     path('my_subjects', views.my_subjects, name='my_subjects'),
     path('result/<str:code>', views.result, name='result'),
 
+    path("result/<str:code>/change/",views.change_student,name="change-student"),
+    path('studentinfo/<str:name>/<int:id>' ,views.studentinfo, name = 'studentinfo')
 ]

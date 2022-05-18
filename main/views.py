@@ -1,4 +1,5 @@
 from multiprocessing import context
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .models import *
 from django.contrib.auth.forms import  UserCreationForm
@@ -99,14 +100,66 @@ def my_subjects(request):
 
 
 def result(request,code):
-    subject = Subject.objects.get(code = code)
-    for spec in subject.faculty.all():
-        if Student.objects.filter(specializetion = spec):
-            student = Student.objects.filter(specializetion = spec)
+    result = Result.objects.filter(subject__code = code)
+    for r in result:
+        u = r.Assignments+r.Mid_Term+r.End_Term
+        if u >= 80:
+            r.Grade = "A"
+        elif u >= 70:
+            r.Grade = "B"
+        elif u >= 60:
+            r.Grade = "C"
+        elif u >= 50:
+            r.Grade = "D"
         else:
-            continue
-
+            r.Grade = "F"
+        r.save()
     context = {
-        'students' : student
-    }  
-    return render(request,'result.html', context)
+        'results' : result,
+        "code":code,
+    }
+
+    if request.method == 'POST':
+        id = request.POST.get("re_id")
+        print(id)
+        result = Result.objects.get(id = id)
+        context["active"]=result
+        return render(request,"result.html",context)
+
+
+    return render(request, 'result.html', context)
+
+def change_student(request,code):
+
+    if request.method == 'POST':
+        id = request.POST['re_id']
+        result = Result.objects.get(id = id)
+        result.Assignments = request.POST['assigment']
+        result.Mid_Term = request.POST['mid_term']
+        result.End_Term = request.POST['end_term']
+        result.save()
+    
+        return redirect("result",code=code)
+
+
+def studentinfo(request, id , name):
+    student = Student.objects.get(id = id)
+    results = student.results.all()
+    DATA = {
+        "s1":[],
+        "s2":[],
+        "s3":[],
+        "s4":[],
+        "s5":[],
+        "s6":[],
+        "s7":[],
+        "s8":[],
+        "student":student,
+        "results":results,
+    }
+    for i in range(1,9):
+        for r in results:
+            if int(r.subject.semester.year) == i:
+                DATA[f's{i}'].append(r)
+
+    return render(request,"studentinfo.html",DATA)

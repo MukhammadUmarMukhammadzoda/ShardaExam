@@ -64,7 +64,7 @@ class Student(models.Model):
 
 
 class Result(models.Model):
-    subject = models.ForeignKey(Subject, on_delete=models.PROTECT, null=True)
+    subject = models.ForeignKey(Subject, on_delete=models.PROTECT, null=True, related_name='sresults')
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, related_name='results')
     Assignments = models.PositiveIntegerField(null=True)
     Mid_Term = models.PositiveIntegerField(null=True)
