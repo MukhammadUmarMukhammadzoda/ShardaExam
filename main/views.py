@@ -1,3 +1,4 @@
+# Importing Essential libraries
 from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -6,6 +7,8 @@ from django.contrib.auth.forms import  UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+
+#Index page that is responsible for first page of Website
 def index(request):
 
     branch = Branch.objects.all()
@@ -21,50 +24,33 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-
+# Group Page to show groups among branches like btech or bba
 def group(request, name, code):
     global group
     group = Group.objects.get(code = code)
     spec = Specialization.objects.filter(branch = group.course)
-
     search = request.GET.get('search')
     if search:
         search = search.capitalize()
         
 
-        students = group.students.filter(name = search)
+        students = group.students.filter(name__startswith = search)
     else:
         students = group.students.all()
 
     return render(request, 'group.html', {"specs" : spec, 'students': students, 'group' : group})
 
 
-
+# It will return filtered students who studies at specific branch
 def spec(request, id):
     spec = Specialization.objects.get(id = id)
-    subjects = Subject.objects.filter(faculty = spec, group = group)
+    students = group.students.filter(specializetion = spec)
+    spec = Specialization.objects.filter(branch = group.course)
 
-    return render(request, 'subject.html', {'subjects' : subjects}  )
-
-
-
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-    context = {
-        'form' : form
-    }
-    return render(request, 'signup.html', context)
+    return render(request, 'spec.html', {'students' : students, 'specs' :spec}  )
 
 
-
-
-
+# Login Page to use login part of website
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -73,16 +59,20 @@ def loginPage(request):
         if user is not None:
             login(request, user)
             return redirect('index')
+        else:
+            return redirect('login')
 
     return render(request, 'login.html')
 
 
+# Logout Page
 def logoutPage(request):
     logout(request)
     return redirect('index')
 
 
 
+# My subject Page is responsible for subjetcs which are teacher is belonged to
 @login_required
 def my_subjects(request):
     subject = Subject.objects.filter(teacher = request.user)
@@ -93,12 +83,7 @@ def my_subjects(request):
 
     return render(request, 'mysub.html', context)
 
-
-
-
-
-
-
+# Result page is for Teacher to change marks of students
 def result(request,code):
     result = Result.objects.filter(subject__code = code)
     for r in result:
@@ -129,6 +114,7 @@ def result(request,code):
 
     return render(request, 'result.html', context)
 
+# It will change student
 def change_student(request,code):
 
     if request.method == 'POST':
@@ -141,7 +127,7 @@ def change_student(request,code):
     
         return redirect("result",code=code)
 
-
+# Student info page is for getting info of student
 def studentinfo(request, id , name):
     student = Student.objects.get(id = id)
     results = student.results.all()

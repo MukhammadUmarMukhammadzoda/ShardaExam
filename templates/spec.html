@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="../styles/groups.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <title>Sharda University</title>
+</head>
+
+<body>
+  <header style="background-color:#23394c;color:white">
+    <nav class="nav d-flex justify-content-between container navbar navbar-expand-sm  p-2">
+      <div>
+        <a class="navbar-brand text-dark h1 text-bold text-white" href="#">{{group.name}} {{group.code}}</a>
+      </div>
+      <div>
+        <ul class="list-unstyled navbar-nav">
+          {% for spec in specs %}
+          <li class="nav-item"><a class="text-decoration-none nav-link text-white h5"
+              href="{% url 'spec'  spec.id %}">{{spec.name}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+
+  <div style="min-height:70vh">
+    <main class="content container">
+      <form class="d-flex my-2" method="GET">
+        <input class="form-control search-input me-2" type="search" name="search" placeholder="Search by names..."
+          aria-label="Search">
+        <button class="btn btn-outline-dark submit" type="submit">Search</button>
+      </form>
+
+      <table class="table table-bordered table-responsive">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Phone number</th>
+            <th>GPA</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+          <tr>
+            <td><a href="{% url 'studentinfo' student.name student.id %}"> {{student.name}} </a></td>
+            <td>{{student.unique_id}}</td>
+            <td>+999999999</td>
+            <td>4.2</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+
+
+  <div>
+    <!-- Footer -->
+    <footer class="text-center text-lg-start text-white" style="background-color: #23394c">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <section class="">
+          <!--Grid row-->
+          <div class="row">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">
+                Sharda University Uzbekistan
+              </h6>
+              <p>
+                73, Boburshah Prospekt, Andijan, Uzbekistan
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 clearfix d-md-none" />
+
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">More Info</h6>
+              <p>
+                <a target="_blank" href="https://www.shardauniversity.uz/privacy-policy"
+                  class="text-white text-decoration-none">Privacy
+                  Policy</a>
+              </p>
+              <p>
+                <a target="_blank" href="https://www.shardauniversity.uz/terms-of-use"
+                  class="text-white text-decoration-none">Terms of
+                  Use</a>
+              </p>
+              <p>
+                <a target="_blank" href="https://www.shardauniversity.uz/disclaimer"
+                  class="text-white text-decoration-none">Disclaimer</a>
+              </p>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 clearfix d-md-none" />
+
+            <!-- Grid column -->
+            <hr class="w-100 clearfix d-md-none" />
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+              <p><i class="fas fa-envelope mr-3"></i> shardauniversityuz@gmail.com</p>
+              <p><i class="fas fa-phone mr-3"></i> +998905261234</p>
+              <p><i class="fas fa-print mr-3"></i>+998905271234</p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+
+              <!-- Facebook -->
+              <a target="_blank" class="btn btn-primary btn-floating m-1" style="background-color: #3b5998"
+                href="https://www.facebook.com/ShardaUniversityUzbekistan" role="button"><i
+                  class="fab fa-facebook-f"></i></a>
+
+              <!-- Google -->
+              <a target="_blank" class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39"
+                href="https://www.shardauniversity.uz/" role="button"><i class="fab fa-google"></i></a>
+
+              <!-- Instagram -->
+              <a target="_blank" class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac"
+                href="https://instagram.com/shardauniuz?igshid=YmMyMTA2M2Y=" role="button"><i
+                  class="fab fa-instagram"></i></a>
+
+              <!-- Linkedin -->
+              <a target="_blank" class="btn btn-primary btn-floating m-1" style="background-color: #0082ca"
+                href="https://www.linkedin.com/company/sharda-university-uzbekistan/" role="button"><i
+                  class="fab fa-linkedin-in"></i></a>
+
+            </div>
+          </div>
+          <!--Grid row-->
+        </section>
+        <!-- Section: Links -->
+      </div>
+      <!-- Grid container -->
+
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        Copyright © <span id="year"></span> Sharda University Uzbekistan. All Right Reserved.
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+  </div>
+  <!-- End of .container -->
+
+</body>
+
+<script>
+  document.getElementById('year').innerHTML = new Date().getFullYear()
+</script>
+
+</html>
