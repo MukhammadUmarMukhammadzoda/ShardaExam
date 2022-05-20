@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 
+
+
 #Index page that is responsible for first page of Website
 def index(request):
 
@@ -22,6 +24,8 @@ def index(request):
     }
 
     return render(request, 'index.html', context)
+
+
 
 
 # Group Page to show groups among branches like btech or bba
@@ -41,6 +45,8 @@ def group(request, name, code):
     return render(request, 'group.html', {"specs" : spec, 'students': students, 'group' : group})
 
 
+
+
 # It will return filtered students who studies at specific branch
 def spec(request, id):
     spec = Specialization.objects.get(id = id)
@@ -48,6 +54,8 @@ def spec(request, id):
     spec = Specialization.objects.filter(branch = group.course)
 
     return render(request, 'spec.html', {'students' : students, 'specs' :spec}  )
+
+
 
 
 # Login Page to use login part of website
@@ -63,6 +71,9 @@ def loginPage(request):
             return redirect('login')
 
     return render(request, 'login.html')
+
+
+
 
 
 # Logout Page
@@ -83,10 +94,12 @@ def my_subjects(request):
 
     return render(request, 'mysub.html', context)
 
+
+
+
 # Result page is for Teacher to change marks of students
 def result(request,code):
     result = Result.objects.filter(subject__code = code)
-    print(len(result))
     subject = Subject.objects.get(code = code)
     students = Student.objects.filter(group__code = subject.group.code)
     sts = []
@@ -119,13 +132,15 @@ def result(request,code):
 
     if request.method == 'POST':
         id = request.POST.get("re_id")
-        print(id)
         result = Result.objects.get(id = id)
         context["active"]=result
         return render(request,"result.html",context)
 
 
     return render(request, 'result.html', context)
+
+
+
 
 # It will change student
 def change_student(request,code):
@@ -147,6 +162,9 @@ def change_student(request,code):
                 End_Term = request.POST['end_term'],
                 )
         return redirect("result",code=code)
+
+
+
 
 # Student info page is for getting info of student
 def studentinfo(request, id , name):
