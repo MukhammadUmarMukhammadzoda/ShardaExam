@@ -86,6 +86,18 @@ def my_subjects(request):
 # Result page is for Teacher to change marks of students
 def result(request,code):
     result = Result.objects.filter(subject__code = code)
+    print(len(result))
+    subject = Subject.objects.get(code = code)
+    students = Student.objects.filter(group__code = subject.group.code)
+    sts = []
+    facts = subject.faculty.all()
+    for i in students:
+        if i.specializetion in facts:
+            sts.append(i)
+            for rs in result:
+                if rs.student.id == i.id:
+                    sts.remove(i)
+    students = sts
     for r in result:
         u = r.Assignments+r.Mid_Term+r.End_Term
         if u >= 80:
@@ -102,6 +114,7 @@ def result(request,code):
     context = {
         'results' : result,
         "code":code,
+        'students' : students
     }
 
     if request.method == 'POST':
@@ -119,12 +132,20 @@ def change_student(request,code):
 
     if request.method == 'POST':
         id = request.POST['re_id']
-        result = Result.objects.get(id = id)
-        result.Assignments = request.POST['assigment']
-        result.Mid_Term = request.POST['mid_term']
-        result.End_Term = request.POST['end_term']
-        result.save()
-    
+        if id != 'new':
+            result = Result.objects.get(id = id)
+            result.Assignments = request.POST['assigment']
+            result.Mid_Term = request.POST['mid_term']
+            result.End_Term = request.POST['end_term']
+            result.save()
+        else:
+            result = Result.objects.create(
+                subject=Subject.objects.get(code=code),
+                student=Student.objects.get(id=request.POST['student_id']),
+                Assignments = request.POST['assigment'],
+                Mid_Term = request.POST['mid_term'],
+                End_Term = request.POST['end_term'],
+                )
         return redirect("result",code=code)
 
 # Student info page is for getting info of student
