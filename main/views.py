@@ -36,6 +36,7 @@ def group(request, name, code):
     search = request.GET.get('search')
     if search:
         search = search.capitalize()
+        print(search)
         
 
         students = group.students.filter(name__startswith = search)
@@ -50,6 +51,17 @@ def group(request, name, code):
 # It will return filtered students who studies at specific branch
 def spec(request, id):
     spec = Specialization.objects.get(id = id)
+    search = request.GET.get('search')
+
+    if search:
+        search = search.capitalize()
+        print(search)
+        
+
+        students = group.students.filter(name__startswith = search)
+    else:
+        students = group.students.all()
+
     students = group.students.filter(specializetion = spec)
     spec = Specialization.objects.filter(branch = group.course)
 

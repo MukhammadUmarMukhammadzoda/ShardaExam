@@ -45,19 +45,19 @@
       <table class="table table-bordered table-responsive">
         <thead>
           <tr>
-            <th>ID</th>
             <th>Full Name</th>
-            <th>Phone number</th>
-            <th>GPA</th>
+            <th>Unique ID</th>
+            <th>Specialization</th>
+            <th>SGPA</th>
           </tr>
         </thead>
         <tbody>
           {% for student in students %}
           <tr>
-            <td><a href="{% url 'studentinfo' student.name student.id %}"> {{student.name}} </a></td>
+            <td><a  href="{% url 'studentinfo' student.name student.id %}"> {{student.name}} </a></td>
             <td>{{student.unique_id}}</td>
-            <td>+999999999</td>
-            <td>4.2</td>
+            <td>{{student.specializetion}}</td>
+            <td>{{student.sgpa}}</td>
           </tr>
           {% endfor %}
         </tbody>
