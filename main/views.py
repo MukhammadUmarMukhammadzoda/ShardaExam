@@ -123,19 +123,6 @@ def result(request,code):
                 if rs.student.id == i.id:
                     sts.remove(i)
     students = sts
-    for r in result:
-        u = r.Assignments+r.Mid_Term+r.End_Term
-        if u >= 80:
-            r.Grade = "A"
-        elif u >= 70:
-            r.Grade = "B"
-        elif u >= 60:
-            r.Grade = "C"
-        elif u >= 50:
-            r.Grade = "D"
-        else:
-            r.Grade = "F"
-        r.save()
     context = {
         'results' : result,
         "code":code,
@@ -158,12 +145,16 @@ def result(request,code):
 def change_student(request,code):
 
     if request.method == 'POST':
+        grade = request.POST['grade']
+        grade = grade.upper()
+
         id = request.POST['re_id']
         if id != 'new':
             result = Result.objects.get(id = id)
             result.Assignments = request.POST['assigment']
             result.Mid_Term = request.POST['mid_term']
             result.End_Term = request.POST['end_term']
+            result.Grade = grade
             result.save()
         else:
             result = Result.objects.create(
@@ -172,6 +163,7 @@ def change_student(request,code):
                 Assignments = request.POST['assigment'],
                 Mid_Term = request.POST['mid_term'],
                 End_Term = request.POST['end_term'],
+                Grade = grade
                 )
         return redirect("result",code=code)
 

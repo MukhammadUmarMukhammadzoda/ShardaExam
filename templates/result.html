@@ -57,7 +57,7 @@
 
             <td><input style="width:100%; outline:none;;" name="mid_term" value={{result.Mid_Term}}></td>
             <td><input style="width:100%; outline:none;;" name="end_term" value={{result.End_Term}}></td>
-            <td>{{result.Grade}}</td>
+            <td><input style="width:100%; outline:none;;" name="grade" value={{result.grade}}></td>
             <td style="border-color:transparent;border:none;display:flex;justify-content:center; align-items:center">
                 <input type="hidden"  name="re_id" value={{result.id}}>
                 <button class="btn btn-success" type="submit">save</button>
@@ -90,7 +90,7 @@
 
             <td><input style="width:100%; outline:none;;" name="mid_term" required></td>
             <td><input style="width:100%; outline:none;;" name="end_term" required></td>
-            <td>Null</td>
+            <td><input style="width:100%; outline:none;;" name="grade" required></td>
             <td style="border-color:transparent;border:none;display:flex;justify-content:center; align-items:center">
                 <input type="hidden"  name="re_id" value='new'>
                 <input type="hidden"  name="student_id" value={{student.id}}>
