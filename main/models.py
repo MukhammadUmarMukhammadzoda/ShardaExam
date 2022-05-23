@@ -76,4 +76,9 @@ class Result(models.Model):
 
 
     
+class File(models.Model):
+    name = models.CharField(max_length=30, blank=True, null=True)
+    file = models.FileField(upload_to='excel_sheets')
 
+def __str__(self):
+    return self.name

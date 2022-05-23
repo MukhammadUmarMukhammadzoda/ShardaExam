@@ -192,3 +192,9 @@ def studentinfo(request, id , name):
                 DATA[f's{i}'].append(r)
 
     return render(request,"studentinfo.html",DATA)
+
+
+
+@login_required
+def upload(request):
+    pass
