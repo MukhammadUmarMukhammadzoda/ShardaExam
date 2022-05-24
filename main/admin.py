@@ -23,3 +23,5 @@ class StudentAdmin(admin.ModelAdmin):
     "sgpa",
         ]
     list_filter=['group', 'specializetion']
+
+admin.site.register(File)
