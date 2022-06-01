@@ -55,7 +55,6 @@ def spec(request, id):
 
     if search:
         search = search.capitalize()
-        print(search)
         
 
         students = group.students.filter(name__startswith = search)
@@ -174,34 +173,28 @@ def change_student(request,code):
 def studentinfo(request, id , name):
     student = Student.objects.get(id = id)
     results = student.results.all()
-    DATA = {
-        "s1":[],
-        "s2":[],
-        "s3":[],
-        "s4":[],
-        "s5":[],
-        "s6":[],
-        "s7":[],
-        "s8":[],
-        "student":student,
-        "results":results,
+    semesters = Semester.objects.all()
+    # DATA = {
+    #     "s1":[],
+    #     "s2":[],
+    #     "s3":[],
+    #     "s4":[],
+    #     "s5":[],
+    #     "s6":[],
+    #     "s7":[],
+    #     "s8":[],
+    #     "student":student,
+    #     "results":results,
+    # }
+    # for i in range(1,9):
+    #     for r in results:
+    #         if int(r.subject.semester.year) == i:
+    #             DATA[f's{i}'].append(r)
+    context = {
+        "results": results,
+        "semesters": semesters
     }
-    for i in range(1,9):
-        for r in results:
-            if int(r.subject.semester.year) == i:
-                DATA[f's{i}'].append(r)
-
-    return render(request,"studentinfo.html",DATA)
+    return render(request,"studentinfo.html", context)
 
 
 
-@login_required
-def upload(request):
-     with open(path) as f:
-        reader = csv.reader(f)
-        for row in reader:
-            _, created = Teacher.objects.get_or_create(
-                first_name=row[0],
-                last_name=row[1],
-                middle_name=row[2],
-                )

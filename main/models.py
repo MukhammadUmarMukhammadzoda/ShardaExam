@@ -26,7 +26,7 @@ class Subject(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
     faculty = models.ManyToManyField('Specialization', related_name="subjects")
     group = models.ForeignKey('Group', on_delete=models.CASCADE)
-    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='subject')
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='subjects')
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     credit = models.PositiveIntegerField(null=True)
     def __str__(self):
