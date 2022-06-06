@@ -55,7 +55,7 @@ class Student(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
     unique_id = models.CharField(max_length=12, blank=True, null=True, unique=True)
     group = models.ForeignKey(Group, on_delete=models.DO_NOTHING,related_name="students")
-    specializetion = models.ForeignKey(Specialization, on_delete=models.CASCADE)
+    specializetion = models.ForeignKey(Specialization, on_delete=models.CASCADE, blank=True)
     cgpa = models.FloatField(null=True, blank=True)
     sgpa = models.FloatField(null=True, blank=True)
 
