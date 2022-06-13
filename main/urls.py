@@ -16,5 +16,4 @@ urlpatterns = [
 
     path("result/<str:code>/change/",views.change_student,name="change-student"),
     path('studentinfo/<str:name>/<int:id>' ,views.studentinfo, name = 'studentinfo'),
-    path('upload', views.upload, name='upload')
 ]

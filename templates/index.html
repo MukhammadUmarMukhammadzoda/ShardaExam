@@ -27,7 +27,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="mx-auto collapse navbar-collapse navbar-links " id="navbarNav">
-          <ul class="navbar-nav mx-auto ">
+          <ul class="navbar-nav mx-auto">
             {% for branch in branchs %}
             <li class="nav-item mx-auto dropdown">
               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-current="page"
@@ -42,13 +42,12 @@
             {% endif %}
             {% endfor %}
           </ul>
-         
           </li>
           {% endfor %}
           </ul>
         </div>
       </div>
-      {%  if user.is_authenticated %}
+      {% if user.is_authenticated %}
       <a href="{% url 'logout' %}">Logout</a>
       <a href="{% url 'my_subjects'  %}"> My subjects</a>
       {% else %}

@@ -26,7 +26,7 @@ class Subject(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
     faculty = models.ManyToManyField('Specialization', related_name="subjects")
     group = models.ForeignKey('Group', on_delete=models.CASCADE)
-    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='subject')
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='subjects')
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     credit = models.PositiveIntegerField(null=True)
     def __str__(self):
@@ -55,7 +55,7 @@ class Student(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
     unique_id = models.CharField(max_length=12, blank=True, null=True, unique=True)
     group = models.ForeignKey(Group, on_delete=models.DO_NOTHING,related_name="students")
-    specializetion = models.ForeignKey(Specialization, on_delete=models.CASCADE)
+    specializetion = models.ForeignKey(Specialization, on_delete=models.CASCADE, blank=True)
     cgpa = models.FloatField(null=True, blank=True)
     sgpa = models.FloatField(null=True, blank=True)
 
