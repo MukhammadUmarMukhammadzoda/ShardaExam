@@ -44,6 +44,8 @@
 
       <table class="table table-bordered table-responsive">
         <thead>
+          {% if students %}
+
           <tr>
             <th>Full Name</th>
             <th>Unique ID</th>
@@ -60,6 +62,9 @@
             <td>{{student.sgpa}}</td>
           </tr>
           {% endfor %}
+          {% else %}
+          <h1 class="text-center fw-normal fs-4"> No student </h1>
+          {% endif %}
         </tbody>
       </table>
     </main>

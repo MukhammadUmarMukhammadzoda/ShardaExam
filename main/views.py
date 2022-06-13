@@ -65,7 +65,7 @@ def spec(request, id):
     students = group.students.filter(specializetion = spec)
     spec = Specialization.objects.filter(branch = group.course)
 
-    return render(request, 'spec.html', {'students' : students, 'specs' :spec}  )
+    return render(request, 'group.html', {'students' : students, 'specs' :spec}  )
 
 
 
