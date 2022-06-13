@@ -1,12 +1,13 @@
 # Importing Essential libraries
 from multiprocessing import context
+from urllib.request import Request
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .models import *
 from django.contrib.auth.forms import  UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
+import pandas as pd
 
 
 
@@ -64,7 +65,7 @@ def spec(request, id):
     students = group.students.filter(specializetion = spec)
     spec = Specialization.objects.filter(branch = group.course)
 
-    return render(request, 'spec.html', {'students' : students, 'specs' :spec}  )
+    return render(request, 'group.html', {'students' : students, 'specs' :spec}  )
 
 
 
@@ -125,13 +126,42 @@ def result(request,code):
     context = {
         'results' : result,
         "code":code,
-        'students' : students
+        'students' : students,
+        'subject' : subject
     }
 
     if request.method == 'POST':
-        id = request.POST.get("re_id")
-        result = Result.objects.get(id = id)
-        context["active"]=result
+        try:
+          filedata = request.FILES['myFile']
+          if filedata:
+            data = pd.DataFrame(pd.read_excel(filedata))
+            data = data.reset_index()
+            for index, row in data.iterrows():
+                teacher = User.objects.filter(username = row['teacher']).first()
+                group = Group.objects.filter(name=row['group(pro-term)']).first()
+                semester = Semester.objects.filter(year = int(row['semester'])).first()
+                specs_data = row['specialization'].split(",")
+                specs = [Specialization.objects.filter(name=spec.strip()).first() for spec in specs_data]
+                obj, created = Subject.objects.get_or_create(
+                    code=row['code'],
+                    title=row['title'],
+                    group=group,
+                    semester = semester,
+                    teacher = teacher,
+                    credit =  row['credit']
+                )
+                if created:
+                    for spec in specs:
+                        obj.faculty.add(spec)
+                    obj.save()
+                    
+
+        except:
+           id = request.POST.get("re_id")
+        
+           if id:
+             result = Result.objects.get(id = id)
+             context["active"]=result
         return render(request,"result.html",context)
 
 
@@ -174,22 +204,6 @@ def studentinfo(request, id , name):
     student = Student.objects.get(id = id)
     results = student.results.all()
     semesters = Semester.objects.all()
-    # DATA = {
-    #     "s1":[],
-    #     "s2":[],
-    #     "s3":[],
-    #     "s4":[],
-    #     "s5":[],
-    #     "s6":[],
-    #     "s7":[],
-    #     "s8":[],
-    #     "student":student,
-    #     "results":results,
-    # }
-    # for i in range(1,9):
-    #     for r in results:
-    #         if int(r.subject.semester.year) == i:
-    #             DATA[f's{i}'].append(r)
     context = {
         "results": results,
         "semesters": semesters

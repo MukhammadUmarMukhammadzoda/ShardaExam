@@ -12,21 +12,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
 
   <title>Sharda University</title>
 </head>
 
 <body>
   <header style="background-color:#23394c;color:white">
-    <nav class="nav d-flex justify-content-between container navbar navbar-expand-sm  p-2">
-      <div>
-        <a class="navbar-brand text-dark h1 text-bold text-white" href="#">{{group.name}} {{group.code}}</a>
-      </div>
-      <div>
+    <nav class="nav d-flex justify-content-between container navbar navbar-expand-sm  p-4 ">
         <ul class="list-unstyled navbar-nav">
-
+             <li>   {{subject.title}} </li>
         </ul>
-      </div>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input type="file" onchange="this.form.submit()" name="myFile"/>
+        </form>
+      
     </nav>
   </header>
 
@@ -35,7 +36,7 @@
     <main class="content container">
       
 
-      <table class="table table-bordered table-responsive">
+      <table class="table table-bordered table-responsive my-3">
         <thead>
           <tr>
             <th>Name</th>
@@ -57,7 +58,7 @@
 
             <td><input style="width:100%; outline:none;;" name="mid_term" value={{result.Mid_Term}}></td>
             <td><input style="width:100%; outline:none;;" name="end_term" value={{result.End_Term}}></td>
-            <td><input style="width:100%; outline:none;;" name="grade" value={{result.grade}}></td>
+            <td><input style="width:100%; outline:none;;" name="grade" value={{result.Grade}}></td>
             <td style="border-color:transparent;border:none;display:flex;justify-content:center; align-items:center">
                 <input type="hidden"  name="re_id" value={{result.id}}>
                 <button class="btn btn-success" type="submit">save</button>
@@ -206,7 +207,10 @@
 </body>
 
 <script>
-  document.getElementById('year').innerHTML = new Date().getFullYear()
+  document.getElementById('year').innerHTML = new Date().getFullYear();
+  document.getElementById('myfilefield').onchange = function() {
+    this.form.submit();
+  };
 </script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
