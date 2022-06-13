@@ -54,7 +54,9 @@
         <tbody>
           {% for student in students %}
           <tr>
-            <td><a  href="{% url 'studentinfo' student.name student.id %}"> {{student.name}} </a></td>
+            <td><a class="text-decoration-none" style="color:#1b5d9b;"
+                href="{% url 'studentinfo' student.name student.id %}"> {{student.name}}
+              </a></td>
             <td>{{student.unique_id}}</td>
             <td>{{student.specializetion}}</td>
             <td>{{student.sgpa}}</td>

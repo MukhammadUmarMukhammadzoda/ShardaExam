@@ -1,11 +1,11 @@
 {% for semester in semesters %}
-    <h2>{{ semester}}</h2>
-    {% for result in results %}
-        {% if result.subject.semester == semester %}
-            {{ result.subject.title }}- {{ result.Grade }}
+<h2>{{ semester}}</h2>
+{% for result in results %}
+{% if result.subject.semester == semester %}
+{{ result.subject.title }}- {{ result.Grade }}
 
-        {% endif %}
-    {% endfor %}
+{% endif %}
+{% endfor %}
 {% endfor %}
 <br>
 <br>

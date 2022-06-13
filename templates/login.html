@@ -1,6 +1,50 @@
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  <input type="text" name="username">
-  <input type="password" name="password">
-  <button type="submit">Login</button>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+
+  <title>Login</title>
+</head>
+
+<body>
+
+  <div id="window">
+    <h1> Login </h1>
+    <br>
+    <br>
+    <br>
+    <form method="post" class="data">
+      {% csrf_token %}
+      <label for="username">
+        <br>
+        <input id="username" type="text" name="username" placeholder="Username">
+      </label>
+      <br>
+      <br>
+      <br>
+
+      <label for"user-pin">
+
+        <br>
+        <input type="password" name="password" id"user-pin" placeholder="Password">
+        <br>
+        <br>
+        <br>
+        <button id="LoginBtn" type="submit"> Login </button>
+
+        <br>
+        <br>
+        <br>
+
+      </label>
+    </form>
+
+  </div>
+</body>
+
+</html>
