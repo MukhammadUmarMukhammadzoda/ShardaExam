@@ -206,7 +206,8 @@ def studentinfo(request, id , name):
     semesters = Semester.objects.all()
     context = {
         "results": results,
-        "semesters": semesters
+        "semesters": semesters,
+        'student' : student
     }
     return render(request,"studentinfo.html", context)
 
